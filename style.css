@@ -1,0 +1,495 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+/* Basic Keyframe Animations */
+/* These will still work as they are applied directly in CSS */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animation for collaborate text */
+@keyframes pulseGlow {
+    0% {
+        color: #c9d1d9;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        color: #00BCD4; /* Cyan accent */
+        text-shadow: 0 0 15px #00BCD4, 0 0 25px #00BCD4; /* Stronger glow */
+    }
+    100% {
+        color: #c9d1d9;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+}
+
+.collaborate-text {
+    display: inline-block; /* Essential for text-shadow to apply well */
+    font-weight: 600; /* Make it bolder */
+    margin-top: 15px; /* Add some space from the previous line */
+    animation: pulseGlow 3s infinite ease-in-out; /* Apply the animation */
+}
+
+.collaborate-text a {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Inherit color from parent span */
+    transition: color 0.3s ease;
+}
+
+.collaborate-text a:hover {
+    color: #FF007F; /* Change color on hover to magenta */
+    text-decoration: underline; /* Add underline back on hover */
+}
+
+/* General Body Styles */
+body {
+    font-family: 'Inter', sans-serif; /* Modern body font */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #c9d1d9; /* Light grey for primary text */
+    background-color: #0d1117; /* Deep dark blue-grey background */
+    transition: background-color 0.4s ease; /* Smooth transition for any future theme changes */
+}
+
+.container {
+    width: 90%; /* Slightly wider container */
+    max-width: 1200px; /* Max width for large screens */
+    margin: auto;
+    overflow: hidden;
+    padding: 0 15px; /* Add some horizontal padding */
+}
+
+/* Header Styles */
+header {
+    background: #0d1117; /* Match body background for seamless look */
+    color: #fff;
+    padding: 25px 0; /* More padding */
+    min-height: 80px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle bottom border */
+    text-align: center;
+    position: sticky; /* Sticky header for navigation */
+    top: 0;
+    z-index: 1000; /* Ensure it stays on top */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+header h1 {
+    font-family: 'Poppins', sans-serif; /* Heading font */
+    margin: 0;
+    font-size: 3.5em; /* Increased size */
+    font-weight: 800; /* Made bolder */
+    letter-spacing: 2px; /* Added letter spacing */
+    background: linear-gradient(90deg, #7F00FF, #00BCD4, #FF007F); /* Vibrant gradient */
+    -webkit-background-clip: text; /* Clip background to text */
+    -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
+    color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+    text-shadow: 0 0 10px rgba(0, 188, 212, 0.5), 0 0 20px rgba(127, 0, 255, 0.3); /* Subtle glow */
+    animation: fadeInUp 0.8s ease-out forwards; /* Initial animation for name */
+}
+
+header .tagline {
+    font-size: 1.2em;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: #92b0c9; /* Softer blue-grey for tagline */
+    animation: fadeInUp 0.8s ease-out forwards 0.2s; /* Delayed animation for tagline */
+    opacity: 0; /* Still starts hidden for its initial animation */
+}
+
+header nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex; /* Use flexbox for navigation */
+    justify-content: center;
+    gap: 25px; /* Space between nav items */
+}
+
+header nav ul li {
+    display: inline-block; /* Still inline for wider compatibility */
+}
+
+header nav a {
+    color: #c9d1d9; /* Light grey for nav links */
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 8px 15px; /* Padding for click area */
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+}
+
+header nav a:hover {
+    color: #ffffff; /* White on hover */
+    background-color: #1a1e26; /* Darker background on hover */
+    transform: translateY(-3px); /* Subtle lift effect */
+    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2); /* Cyan glow shadow */
+}
+
+/* Section Styling */
+.section-padding {
+    padding: 80px 0; /* More vertical padding for sections */
+    position: relative; /* For potential background elements */
+}
+
+.bg-light { /* Renamed to .section-alt for logical consistency in dark theme */
+    background-color: #161b22; /* Slightly lighter dark background for alternating sections */
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    color: #00bcd4; /* Cyan accent for headings */
+    text-align: center;
+    margin-bottom: 60px; /* More space below headings */
+    font-size: 2.8em;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 10px;
+    /* Removed opacity and transform because there's no JS to animate it */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+}
+
+h2::after { /* Underline effect for headings */
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #7F00FF, #00BCD4); /* Gradient underline */
+    border-radius: 2px;
+}
+
+/* Styling for the new Hero Call to Action Section */
+#hero-call-to-action {
+    background-color: #161b22; /* A slightly different dark background */
+    text-align: center; /* Ensures content inside is centered */
+    padding: 60px 0; /* Generous padding */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 40px; /* Space before the next section */
+    /* Removed opacity and transform because there's no JS to animate it */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+}
+
+#hero-call-to-action p {
+    font-size: 2em; /* Made the text significantly larger */
+    max-width: 800px;
+    margin: 0 auto;
+    color: #e0e0e0;
+    text-align: center; /* Ensure text alignment is centered */
+}
+
+
+/* Skills Section */
+.skills-grid {
+    display: grid; /* Use grid for better control */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+    justify-content: center;
+}
+
+.skill-category {
+    background: #1e2a3a; /* Darker card background with a hint of blue */
+    padding: 30px;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Deeper shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover */
+    border: 1px solid rgba(127, 0, 255, 0.2); /* Subtle purple border */
+    /* Removed opacity and transform because there's no JS to animate it */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+}
+
+.skill-category:hover {
+    transform: translateY(-8px) scale(1.01); /* Lift and slightly enlarge */
+    box-shadow: 0 12px 30px rgba(0, 188, 212, 0.4); /* Cyan glow on hover */
+    border-color: #00BCD4; /* Cyan border on hover */
+}
+
+.skill-category h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #7F00FF; /* Purple accent for subheadings */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-category ul li {
+    background: #252e39; /* Slightly lighter background for list items */
+    margin-bottom: 12px;
+    padding: 12px 18px;
+    border-left: 5px solid #FF007F; /* Magenta accent on list items */
+    border-radius: 6px;
+    text-align: left;
+    font-size: 1em;
+    color: #e0e0e0;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.skill-category ul li:hover {
+    background-color: #2e3a47; /* Slightly lighter on hover */
+    transform: translateX(5px); /* Slide effect */
+}
+
+/* Experience & Project Sections */
+.experience-item, .project-item {
+    background: #1e2a3a;
+    padding: 30px;
+    margin-bottom: 30px; /* More space between items */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 188, 212, 0.2); /* Subtle cyan border */
+    /* Removed opacity and transform because there's no JS to animate it */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+}
+
+.experience-item:hover, .project-item:hover {
+    transform: translateY(-8px) scale(1.005); /* Lift effect */
+    box-shadow: 0 12px 30px rgba(127, 0, 255, 0.4); /* Purple glow on hover */
+    border-color: #7F00FF; /* Purple border on hover */
+}
+
+.experience-item h3, .project-item h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #00BCD4; /* Cyan accent */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.experience-item .duration {
+    font-style: normal; /* Remove italic */
+    color: #92b0c9; /* Softer blue-grey for duration */
+    margin-bottom: 15px;
+    display: block;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+.experience-item ul, .project-item ul {
+    list-style: disc;
+    margin-left: 25px; /* More indent */
+    color: #d0d0d0;
+}
+
+.experience-item ul li, .project-item ul li {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+/* Certifications Section */
+#certifications ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    gap: 25px;
+    justify-content: center;
+}
+
+#certifications ul li {
+    background: #1e2a3a; /* Darker card background */
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    color: #e0e0e0;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 0, 127, 0.2); /* Subtle magenta border */
+    /* Removed opacity and transform because there's no JS to animate it */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+}
+
+#certifications ul li:hover {
+    transform: translateY(-8px) scale(1.005);
+    box-shadow: 0 12px 30px rgba(255, 0, 127, 0.4); /* Magenta glow on hover */
+    border-color: #FF007F;
+}
+
+/* Footer Styles */
+footer {
+    background: #0a0e14; /* Even darker for footer */
+    color: #fff;
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Removed opacity and transform because there's no JS to animate it */
+    /* opacity: 0; */
+    /* transform: translateY(20px); */
+}
+
+footer h2 {
+    color: #00BCD4; /* Cyan accent for footer heading */
+    font-size: 2.2em;
+    margin-bottom: 25px;
+}
+
+footer h2::after { /* Remove underline from footer h2 if it doesn't fit */
+    display: none;
+}
+
+footer p {
+    margin: 8px 0;
+    color: #b0b0b0;
+    font-size: 0.95em;
+}
+
+footer a {
+    color: #7F00FF; /* Purple for links */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #FF007F;
+    text-decoration: underline;
+}
+
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-links a {
+    display: inline-flex; /* Use flex for button content alignment */
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #7F00FF, #00BCD4); /* Gradient background for social links */
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.social-links a:hover {
+    background: linear-gradient(45deg, #00BCD4, #7F00FF); /* Reverse gradient on hover */
+    transform: translateY(-5px) scale(1.02); /* Lift and slightly enlarge */
+    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        width: 90%;
+    }
+    h2 {
+        font-size: 2.5em;
+    }
+    .skill-category {
+        padding: 25px;
+    }
+    .experience-item, .project-item { /* Updated to reflect education removal */
+        padding: 25px;
+    }
+    #certifications ul li {
+        padding: 18px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column; /* Stack nav items on mobile */
+        gap: 10px;
+        margin-top: 15px;
+    }
+    header nav ul li {
+        width: 100%; /* Full width for mobile nav items */
+    }
+    header nav a {
+        display: block; /* Make links fill their width */
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 2.2em;
+        margin-bottom: 40px;
+    }
+    .section-padding {
+        padding: 50px 0;
+    }
+    .skills-grid, #certifications ul {
+        grid-template-columns: 1fr; /* Single column for all cards on small screens */
+    }
+    .skill-category, .experience-item, .project-item, #certifications ul li {
+        max-width: 100%; /* Ensure they take full width */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* Removed #about p as section is gone */
+    /* #about p { */
+    /* font-size: 1em; */
+    /* } */
+
+    /* Adjusted font size for name on smaller screens */
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    #hero-call-to-action p {
+        font-size: 1.4em; /* Adjust for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2em; /* Even smaller for tiny screens */
+        letter-spacing: 1px;
+    }
+    header .tagline {
+        font-size: 1em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .social-links a {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    #hero-call-to-action p {
+        font-size: 1.1em; /* Further adjust for very small screens */
+    }
+}
