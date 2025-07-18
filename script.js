@@ -1,53 +1,89 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements to animate on scroll
-    const animateElements = document.querySelectorAll(
-        'h2, #hero-call-to-action, .skill-category, .experience-item, .project-item, #certifications ul li, footer'
-    );
 
-    // Options for the Intersection Observer
-    const observerOptions = {
-        root: null, // viewport
-        rootMargin: '0px',
-        threshold: 0.1 // 10% of the element needs to be visible to trigger animation
-    };
+    //======================================================================
+    // 1. EFFICIENT STAGGERED ANIMATIONS
+    // Sets animation delays on page load for a "wave" effect.
+    //======================================================================
+    const sectionsWithStaggeredItems = document.querySelectorAll('#skills, #experience, #projects, #certifications');
 
-    // Create a new Intersection Observer instance
-    const observer = new IntersectionObserver((entries, observer) => {
+    sectionsWithStaggeredItems.forEach(section => {
+        // Find all animatable items within this section
+        const items = section.querySelectorAll('.skill-category, .experience-item, .project-item, #certifications ul li');
+        
+        // Apply a delay to each item based on its order
+        items.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.15}s`;
+        });
+    });
+
+
+    //======================================================================
+    // 2. SCROLL-TRIGGERED ANIMATIONS (INTERSECTION OBSERVER)
+    // Adds the 'animate-on-scroll' class when an element enters the viewport.
+    //======================================================================
+    // This is the NEW, correct code
+// This is the NEW, correct line
+// This is the NEW, correct line
+const animateElements = document.querySelectorAll(
+    'h2, #hero-call-to-action, .skill-category, .timeline-item, .project-card, .cert-card, footer'
+);
+    
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Add a class that triggers the CSS animation
                 entry.target.classList.add('animate-on-scroll');
-
-                // Optional: Add staggered delays for cards within sections
-                // This creates a nice "wave" effect for multiple items
-                if (entry.target.matches('.skill-category, .experience-item, .project-item, #certifications ul li')) {
-                    const parentSection = entry.target.closest('section');
-                    if (parentSection) {
-                        const sectionItems = Array.from(parentSection.querySelectorAll('.skill-category, .experience-item, .project-item, #certifications ul li'));
-                        sectionItems.forEach((item, index) => {
-                            item.style.animationDelay = `${index * 0.15}s`; // Stagger delay by 0.15s per item
-                        });
-                    }
-                }
-                observer.unobserve(entry.target); // Stop observing once animated
+                observer.unobserve(entry.target); // Animate only once
             }
         });
-    }, observerOptions);
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
 
-    // Observe each element that should be animated
     animateElements.forEach(element => {
         observer.observe(element);
     });
 
-    // Smooth scrolling for navigation links
+
+    //======================================================================
+    // 3. HEADER: HIDE ON SCROLL DOWN, SHOW ON SCROLL UP
+    // Toggles the 'header-hidden' class based on scroll direction.
+    //======================================================================
+    const header = document.querySelector('header');
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+            header.classList.add('header-hidden'); // Scrolling Down
+        } else {
+            header.classList.remove('header-hidden'); // Scrolling Up
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+
+
+    //======================================================================
+    // 4. ACCURATE SMOOTH SCROLLING FOR NAVIGATION
+    // Scrolls to sections, accounting for the fixed header's height.
+    //======================================================================
     document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent default jump behavior
+            e.preventDefault();
 
             const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({
-                behavior: 'smooth' // Smooth scroll effect
-            });
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                const headerOffset = header.offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
+
 });

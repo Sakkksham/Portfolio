@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
 
 /* Basic Keyframe Animations */
-/* These will still work as they are applied directly in CSS */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -42,136 +41,199 @@
 }
 
 .collaborate-text {
-    display: inline-block; /* Essential for text-shadow to apply well */
-    font-weight: 600; /* Make it bolder */
-    margin-top: 15px; /* Add some space from the previous line */
-    animation: pulseGlow 3s infinite ease-in-out; /* Apply the animation */
+    display: inline-block;
+    font-weight: 600;
+    margin-top: 15px;
+    animation: pulseGlow 3s infinite ease-in-out;
 }
 
 .collaborate-text a {
-    text-decoration: none; /* Removes underline */
-    color: inherit; /* Inherit color from parent span */
+    text-decoration: none;
+    color: inherit;
     transition: color 0.3s ease;
 }
 
 .collaborate-text a:hover {
-    color: #FF007F; /* Change color on hover to magenta */
-    text-decoration: underline; /* Add underline back on hover */
+    color: #FF007F;
+    text-decoration: underline;
 }
 
 /* General Body Styles */
 body {
-    font-family: 'Inter', sans-serif; /* Modern body font */
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
-    color: #c9d1d9; /* Light grey for primary text */
-    background-color: #0d1117; /* Deep dark blue-grey background */
-    transition: background-color 0.4s ease; /* Smooth transition for any future theme changes */
+    color: #c9d1d9;
+    background-color: #0d1117;
+    transition: background-color 0.4s ease;
+    /* This padding-top is CRITICAL for fixed headers */
+    padding-top: 90px; /* Adjust this value if your header's actual height changes */
 }
 
 .container {
-    width: 90%; /* Slightly wider container */
-    max-width: 1200px; /* Max width for large screens */
+    width: 90%;
+    max-width: 1200px;
     margin: auto;
-    overflow: hidden;
+    overflow: hidden; /* Prevent horizontal scroll from inner elements */
     padding: 0 15px; /* Add some horizontal padding */
 }
 
-/* Header Styles */
+/* Header Styles - Designed for fixed position and revealing effect */
 header {
-    background: #0d1117; /* Match body background for seamless look */
-    color: #fff;
-    padding: 25px 0; /* More padding */
-    min-height: 80px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle bottom border */
-    text-align: center;
-    position: sticky; /* Sticky header for navigation */
+    background: #0d1117;
+    /* Optional: Uncomment for subtle transparency + blur like Suket Kamboj's */
+    /* background: rgba(13, 17, 23, 0.9); */
+    /* backdrop-filter: blur(5px); */
+    padding: 20px 0;
+    height: 80px; /* Fixed height for consistent positioning and calculation */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: fixed; /* Header stays fixed at the top */
     top: 0;
-    z-index: 1000; /* Ensure it stays on top */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure header is on top of other content */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex; /* Use flexbox for layout within header */
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Space out logo/name and nav */
+    transition: transform 0.3s ease-out; /* Smooth transition for hiding/showing */
 }
 
+/* New: Styles for the inner header container to control content alignment */
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ensure this container fills header's width */
+    padding: 0 20px; /* Internal padding for header content */
+}
+
+/* Class added by JavaScript to hide the header */
+.header-hidden {
+    transform: translateY(-100%); /* Moves header up by its full height */
+}
+
+/* Header h1 (Your Name) Styles - Acts as the logo */
 header h1 {
-    font-family: 'Poppins', sans-serif; /* Heading font */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
-    font-size: 3.5em; /* Increased size */
-    font-weight: 800; /* Made bolder */
-    letter-spacing: 2px; /* Added letter spacing */
-    background: linear-gradient(90deg, #7F00FF, #00BCD4, #FF007F); /* Vibrant gradient */
-    -webkit-background-clip: text; /* Clip background to text */
-    -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
-    color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
-    text-shadow: 0 0 10px rgba(0, 188, 212, 0.5), 0 0 20px rgba(127, 0, 255, 0.3); /* Subtle glow */
+    font-size: 2.5em; /* Adjusted size to be more like a logo */
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #7F00FF, #00BCD4, #FF007F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0, 188, 212, 0.5), 0 0 20px rgba(127, 0, 255, 0.3);
     animation: fadeInUp 0.8s ease-out forwards; /* Initial animation for name */
 }
 
+/* Tagline is typically hidden for this header style */
 header .tagline {
-    font-size: 1.2em;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    color: #92b0c9; /* Softer blue-grey for tagline */
-    animation: fadeInUp 0.8s ease-out forwards 0.2s; /* Delayed animation for tagline */
-    opacity: 0; /* Still starts hidden for its initial animation */
+    display: none;
 }
 
 header nav ul {
     padding: 0;
     list-style: none;
-    display: flex; /* Use flexbox for navigation */
-    justify-content: center;
+    display: flex; /* Flex for desktop nav links */
+    justify-content: flex-end; /* Align links to the right */
+    align-items: center;
     gap: 25px; /* Space between nav items */
+    margin: 0; /* Remove default margin */
 }
 
 header nav ul li {
-    display: inline-block; /* Still inline for wider compatibility */
+    display: inline-block;
 }
 
 header nav a {
-    color: #c9d1d9; /* Light grey for nav links */
+    color: #c9d1d9;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 0.95em; /* Slightly smaller font for nav links */
     font-weight: 500;
-    padding: 8px 15px; /* Padding for click area */
+    padding: 8px 12px;
     border-radius: 5px;
-    transition: all 0.3s ease; /* Smooth transition for all properties */
+    transition: all 0.3s ease;
 }
 
 header nav a:hover {
-    color: #ffffff; /* White on hover */
-    background-color: #1a1e26; /* Darker background on hover */
-    transform: translateY(-3px); /* Subtle lift effect */
-    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2); /* Cyan glow shadow */
+    color: #ffffff;
+    background-color: #1a1e26;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 188, 212, 0.2);
 }
 
-/* Section Styling */
+/* CTA Button in Navigation */
+header nav .cta-button {
+    background: linear-gradient(45deg, #7F00FF, #FF007F);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    display: inline-block;
+}
+
+header nav .cta-button:hover {
+    background: linear-gradient(45deg, #FF007F, #00BCD4);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 188, 212, 0.5);
+}
+
+
+/* Styling for the new Hero Call to Action Section (just below header) */
+#hero-call-to-action {
+    background-color: #0d1117; /* Match body for seamless intro */
+    text-align: center;
+    padding: 100px 0; /* More padding for a strong hero statement */
+    /* Remove negative margin here; rely on body padding-top */
+    /* margin-top: -90px; */
+    border-bottom: none;
+    opacity: 0; /* Starts hidden, animated by JS */
+    transform: translateY(20px); /* Starts slightly off-screen, animated by JS */
+    box-shadow: inset 0 -50px 30px -30px rgba(0,0,0,0.5); /* Subtle inner shadow to hint transition to next section */
+}
+
+#hero-call-to-action p {
+    font-size: 2.2em; /* Even larger for hero text */
+    max-width: 900px;
+    margin: 0 auto;
+    color: #e0e0e0;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Main Content Sections */
 .section-padding {
-    padding: 80px 0; /* More vertical padding for sections */
-    position: relative; /* For potential background elements */
+    padding: 80px 0;
+    position: relative;
 }
 
-.bg-light { /* Renamed to .section-alt for logical consistency in dark theme */
-    background-color: #161b22; /* Slightly lighter dark background for alternating sections */
+.bg-light {
+    background-color: #161b22;
     border-top: 1px solid rgba(255, 255, 255, 0.03);
     border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 h2 {
     font-family: 'Poppins', sans-serif;
-    color: #00bcd4; /* Cyan accent for headings */
+    color: #00bcd4;
     text-align: center;
-    margin-bottom: 60px; /* More space below headings */
+    margin-bottom: 60px;
     font-size: 2.8em;
     font-weight: 700;
     position: relative;
     padding-bottom: 10px;
-    /* Removed opacity and transform because there's no JS to animate it */
-    /* opacity: 0; */
-    /* transform: translateY(20px); */
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-h2::after { /* Underline effect for headings */
+h2::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -179,188 +241,527 @@ h2::after { /* Underline effect for headings */
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background: linear-gradient(90deg, #7F00FF, #00BCD4); /* Gradient underline */
+    background: linear-gradient(90deg, #7F00FF, #00BCD4);
     border-radius: 2px;
 }
 
-/* Styling for the new Hero Call to Action Section */
-#hero-call-to-action {
-    background-color: #161b22; /* A slightly different dark background */
-    text-align: center; /* Ensures content inside is centered */
-    padding: 60px 0; /* Generous padding */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 40px; /* Space before the next section */
-    /* Removed opacity and transform because there's no JS to animate it */
-    /* opacity: 0; */
-    /* transform: translateY(20px); */
+/* Skills Section */
+/* =================================
+   NEW SKILLS SECTION STYLES
+   ================================= */
+
+/* Container for a skill category (e.g., "Languages") */
+.skill-group {
+    margin-bottom: 40px;
 }
 
-#hero-call-to-action p {
-    font-size: 2em; /* Made the text significantly larger */
+/* Category sub-headings */
+.skill-group h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #c9d1d9; /* Lighter text for sub-headings */
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    border-left: 4px solid #7F00FF; /* Accent border */
+    padding-left: 15px;
+}
+
+/* Flex container for the skill tags */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap; /* This is key for responsiveness */
+    gap: 15px; /* Spacing between tags */
+}
+
+/* Individual skill tag styling */
+.skill-item {
+    display: inline-block;
+    background-color: #1e2a3a; /* Dark background for the tag */
+    color: #c9d1d9;
+    padding: 10px 20px;
+    border-radius: 8px; /* Slightly rounded corners */
+    font-size: 1em;
+    font-weight: 500;
+    border: 1px solid rgba(0, 188, 212, 0.3); /* Subtle accent border */
+    transition: all 0.3s ease;
+}
+
+/* Hover effect for the skill tags */
+.skill-item:hover {
+    background-color: #00BCD4; /* Bright cyan on hover */
+    color: #0d1117; /* Dark text on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 188, 212, 0.3);
+    border-color: #00BCD4;
+}
+/* Experience & Project Sections */
+/* =================================
+   NEW EXPERIENCE TIMELINE STYLES
+   ================================= */
+
+/* The main timeline container */
+.timeline {
+    position: relative;
     max-width: 800px;
     margin: 0 auto;
-    color: #e0e0e0;
-    text-align: center; /* Ensure text alignment is centered */
+    padding: 40px 0;
 }
 
-
-/* Skills Section */
-.skills-grid {
-    display: grid; /* Use grid for better control */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
-    gap: 30px;
-    justify-content: center;
+/* The central vertical line of the timeline */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #7F00FF, #00BCD4);
+    border-radius: 3px;
 }
 
-.skill-category {
-    background: #1e2a3a; /* Darker card background with a hint of blue */
-    padding: 30px;
-    border-radius: 12px; /* More rounded corners */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4); /* Deeper shadow */
-    transition: all 0.3s ease; /* Smooth transition for hover */
-    border: 1px solid rgba(127, 0, 255, 0.2); /* Subtle purple border */
-    /* Removed opacity and transform because there's no JS to animate it */
-    /* opacity: 0; */
-    /* transform: translateY(20px); */
+/* Container for each timeline entry (dot + content) */
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    opacity: 0; /* Animated by existing JS */
+    transform: translateY(20px); /* Animated by existing JS */
 }
 
-.skill-category:hover {
-    transform: translateY(-8px) scale(1.01); /* Lift and slightly enlarge */
-    box-shadow: 0 12px 30px rgba(0, 188, 212, 0.4); /* Cyan glow on hover */
-    border-color: #00BCD4; /* Cyan border on hover */
+/* Position odd items on the left */
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+    padding-right: 60px;
 }
 
-.skill-category h3 {
-    font-family: 'Poppins', sans-serif;
-    color: #7F00FF; /* Purple accent for subheadings */
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    text-align: center;
+/* Position even items on the right */
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 60px;
 }
 
-.skill-category ul {
-    list-style: none;
-    padding: 0;
+/* The dot on the timeline */
+.timeline-dot {
+    content: '';
+    position: absolute;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    background-color: #0d1117;
+    border: 4px solid #00BCD4;
+    border-radius: 50%;
+    z-index: 10;
 }
 
-.skill-category ul li {
-    background: #252e39; /* Slightly lighter background for list items */
-    margin-bottom: 12px;
-    padding: 12px 18px;
-    border-left: 5px solid #FF007F; /* Magenta accent on list items */
-    border-radius: 6px;
-    text-align: left;
-    font-size: 1em;
-    color: #e0e0e0;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+/* Position dots for odd (left) and even (right) items */
+.timeline-item:nth-child(odd) .timeline-dot {
+    right: -10px;
+}
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -10px;
 }
 
-.skill-category ul li:hover {
-    background-color: #2e3a47; /* Slightly lighter on hover */
-    transform: translateX(5px); /* Slide effect */
-}
-
-/* Experience & Project Sections */
-.experience-item, .project-item {
+/* The main content box for each experience */
+.timeline-content {
     background: #1e2a3a;
-    padding: 30px;
-    margin-bottom: 30px; /* More space between items */
+    padding: 25px 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 188, 212, 0.2);
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 188, 212, 0.2); /* Subtle cyan border */
-    /* Removed opacity and transform because there's no JS to animate it */
-    /* opacity: 0; */
-    /* transform: translateY(20px); */
+    position: relative;
+}
+.timeline-content:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(127, 0, 255, 0.4);
+    border-color: #7F00FF;
 }
 
-.experience-item:hover, .project-item:hover {
-    transform: translateY(-8px) scale(1.005); /* Lift effect */
-    box-shadow: 0 12px 30px rgba(127, 0, 255, 0.4); /* Purple glow on hover */
-    border-color: #7F00FF; /* Purple border on hover */
+/* Arrow pointing from the content box to the timeline */
+.timeline-content::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 15px;
+    width: 0;
+    z-index: 1;
+    border: medium solid #1e2a3a;
+}
+.timeline-item:nth-child(odd) .timeline-content::before {
+    right: -15px; /* Arrow on the right side */
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent #1e2a3a;
+}
+.timeline-item:nth-child(even) .timeline-content::before {
+    left: -15px; /* Arrow on the left side */
+    border-width: 10px 15px 10px 0;
+    border-color: transparent #1e2a3a transparent transparent;
 }
 
-.experience-item h3, .project-item h3 {
+.timeline-content h3 {
     font-family: 'Poppins', sans-serif;
-    color: #00BCD4; /* Cyan accent */
+    color: #00BCD4;
     margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 2em;
+    margin-bottom: 5px;
+    font-size: 1.6em;
 }
 
-.experience-item .duration {
-    font-style: normal; /* Remove italic */
-    color: #92b0c9; /* Softer blue-grey for duration */
+.timeline-content .duration {
+    font-style: normal;
+    color: #92b0c9;
     margin-bottom: 15px;
     display: block;
-    font-size: 0.95em;
+    font-size: 0.9em;
     font-weight: 500;
 }
 
-.experience-item ul, .project-item ul {
-    list-style: disc;
-    margin-left: 25px; /* More indent */
+.timeline-content .description {
+    margin: 0;
+    line-height: 1.6;
     color: #d0d0d0;
-}
-
-.experience-item ul li, .project-item ul li {
-    margin-bottom: 10px;
     font-size: 1em;
 }
 
-/* Certifications Section */
-#certifications ul {
-    list-style: none;
-    padding: 0;
+/* Responsive Design for Mobile */
+@media screen and (max-width: 768px) {
+    .timeline::before {
+        left: 10px; /* Move line to the left */
+    }
+    .timeline-item {
+        width: 100%;
+        padding-left: 50px; /* Add padding to make space for the line */
+        padding-right: 15px;
+        text-align: left; /* Align all text to the left */
+    }
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        left: 0; /* All items are on the left side */
+    }
+    .timeline-dot {
+        left: 0; /* Position all dots on the line */
+    }
+    .timeline-content::before {
+        left: -15px; /* All arrows point left */
+        border-width: 10px 15px 10px 0;
+        border-color: transparent #1e2a3a transparent transparent;
+    }
+}
+/* =================================
+   NEW PROJECT SECTION STYLES
+   ================================= */
+
+/* The grid container for the project cards */
+.projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
-    gap: 25px;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
 }
 
-#certifications ul li {
-    background: #1e2a3a; /* Darker card background */
-    padding: 20px 25px;
+/* The main project card */
+.project-card {
+    background: #1e2a3a;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    color: #e0e0e0;
-    text-align: center;
-    font-size: 1em;
-    font-weight: 500;
+    overflow: hidden; /* Ensures the image corners are rounded */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 188, 212, 0.2);
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 0, 127, 0.2); /* Subtle magenta border */
-    /* Removed opacity and transform because there's no JS to animate it */
-    /* opacity: 0; */
-    /* transform: translateY(20px); */
+    opacity: 0; /* Animated by existing JS */
+    transform: translateY(20px); /* Animated by existing JS */
 }
 
-#certifications ul li:hover {
-    transform: translateY(-8px) scale(1.005);
-    box-shadow: 0 12px 30px rgba(255, 0, 127, 0.4); /* Magenta glow on hover */
-    border-color: #FF007F;
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(127, 0, 255, 0.4);
+    border-color: #7F00FF;
+}
+
+/* Container for the project image */
+.project-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05); /* Zoom effect on hover */
+}
+
+/* Container for the text content below the image */
+.project-content {
+    padding: 25px;
+}
+
+.project-content h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #00BCD4;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+}
+
+.project-content p {
+    color: #d0d0d0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Container for the technology tags */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tag {
+    background-color: rgba(0, 188, 212, 0.1);
+    color: #00BCD4;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* Container for the "View Live" and "GitHub" links */
+.project-links {
+    display: flex;
+    gap: 15px;
+    margin-top: auto; /* Pushes links to the bottom if cards have different heights */
+}
+
+.project-link {
+    color: #c9d1d9;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 1px solid #c9d1d9;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background: #7F00FF;
+    color: #fff;
+    border-color: #7F00FF;
+    text-decoration: none;
+}
+
+/* =================================
+   NEW CERTIFICATIONS CAROUSEL STYLES
+   ================================= */
+
+/* The main container that will scroll horizontally */
+.certification-carousel {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    padding: 20px 0;
+    /* This makes the scrolling snap to the cards */
+    scroll-snap-type: x mandatory; 
+    /* Hides the scrollbar but keeps it functional */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.certification-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* The inner container that holds all the cards */
+.carousel-track {
+    display: flex;
+    gap: 25px; /* Space between cards */
+    width: max-content; /* Allow the track to be wider than the screen */
+}
+
+/* Individual certification card */
+.cert-card {
+    scroll-snap-align: center; /* Snap each card to the center */
+    flex: 0 0 320px; /* Each card has a fixed width of 320px */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #1e2a3a;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0; /* Animated by existing JS */
+    transform: translateY(20px); /* Animated by existing JS */
+}
+
+.cert-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 188, 212, 0.4);
+    border-color: #00BCD4;
+}
+
+.cert-card h4 {
+    font-family: 'Poppins', sans-serif;
+    color: #e0e6ec;
+    font-size: 1.4em;
+    margin: 0 0 10px 0;
+}
+
+.cert-card .issuer {
+    color: #92b0c9;
+    margin: 0 0 25px 0;
+    font-size: 1em;
+}
+
+.cert-link {
+    display: inline-block;
+    text-align: center;
+    background: transparent;
+    border: 1px solid #7F00FF;
+    color: #7F00FF;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: auto; /* Pushes the link to the bottom */
+    transition: all 0.3s ease;
+}
+
+.cert-link:hover {
+    background: #7F00FF;
+    color: #fff;
+    text-decoration: none;
+}
+/* Styling for the new card header (logo + title) */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between logo and title */
+    margin-bottom: 10px;
+}
+
+/* Styling for the issuer logo image */
+.issuer-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain; /* Ensures logo scales correctly */
+    border-radius: 5px; /* Optional: slightly rounded corners */
+}
+
+/* Adjustments for existing elements */
+.cert-card h4 {
+    margin: 0; /* Remove margin as the header now controls spacing */
+    font-size: 1.3em; /* Slightly adjust font size */
+}
+
+.cert-card .issuer {
+    margin-bottom: 20px; /* Add a bit more space below the issuer name */
 }
 
 /* Footer Styles */
+/* =================================
+   NEW FOOTER STYLES
+   ================================= */
+
+/* Main footer container */
 footer {
-    background: #0a0e14; /* Even darker for footer */
-    color: #fff;
-    text-align: center;
-    padding: 40px 0;
+    background: #0d1117; /* Slightly different dark shade for contrast */
+    color: #a9b3bb;
+    text-align: left; /* Change text alignment to left for columns */
+    padding: 80px 0 40px 0; /* More top padding, less bottom */
     margin-top: 60px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    /* Removed opacity and transform because there's no JS to animate it */
-    /* opacity: 0; */
-    /* transform: translateY(20px); */
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0; /* This will be animated by your existing JS */
+    transform: translateY(20px); /* Also animated by JS */
+}
+
+/* Flexbox wrapper for the two columns */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allows columns to stack on smaller screens */
+    gap: 40px; /* Space between columns when they stack */
+    margin-bottom: 50px;
+}
+
+/* Styling for both footer columns */
+.footer-about, .footer-social {
+    flex: 1; /* Allows columns to grow */
+    min-width: 280px; /* Minimum width before stacking */
+}
+
+/* Headings within the footer */
+.footer-about h3, .footer-social h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #e0e6ec;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.footer-about p {
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+/* Email link styling */
+.footer-email {
+    color: #00BCD4; /* Cyan accent color */
+    font-weight: 500;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-email:hover {
+    color: #FF007F; /* Pink accent color on hover */
+    text-decoration: underline;
+}
+
+/* Social links list styling */
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-social ul li {
+    margin-bottom: 12px;
+}
+
+.footer-social ul li a {
+    color: #a9b3bb;
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.footer-social ul li a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Copyright notice at the bottom */
+.footer-copyright {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #88929c;
 }
 
 footer h2 {
-    color: #00BCD4; /* Cyan accent for footer heading */
+    color: #00BCD4;
     font-size: 2.2em;
     margin-bottom: 25px;
 }
 
-footer h2::after { /* Remove underline from footer h2 if it doesn't fit */
+footer h2::after {
     display: none;
 }
 
@@ -371,7 +772,7 @@ footer p {
 }
 
 footer a {
-    color: #7F00FF; /* Purple for links */
+    color: #7F00FF;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -389,11 +790,11 @@ footer a:hover {
 }
 
 .social-links a {
-    display: inline-flex; /* Use flex for button content alignment */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 12px 25px;
-    background: linear-gradient(45deg, #7F00FF, #00BCD4); /* Gradient background for social links */
+    background: linear-gradient(45deg, #7F00FF, #00BCD4);
     color: #fff;
     border-radius: 8px;
     text-decoration: none;
@@ -403,10 +804,10 @@ footer a:hover {
 }
 
 .social-links a:hover {
-    background: linear-gradient(45deg, #00BCD4, #7F00FF); /* Reverse gradient on hover */
-    transform: translateY(-5px) scale(1.02); /* Lift and slightly enlarge */
+    background: linear-gradient(45deg, #00BCD4, #7F00FF);
+    transform: translateY(-5px) scale(1.02);
     box-shadow: 0 8px 20px rgba(0, 188, 212, 0.5);
-    text-decoration: none; /* Ensure no underline on hover */
+    text-decoration: none;
 }
 
 
@@ -421,28 +822,50 @@ footer a:hover {
     .skill-category {
         padding: 25px;
     }
-    .experience-item, .project-item { /* Updated to reflect education removal */
+    .experience-item, .project-item {
         padding: 25px;
     }
     #certifications ul li {
         padding: 18px 20px;
     }
+    /* Adjusted font size for name on smaller screens */
+    header h1 {
+        font-size: 2em; /* Smaller on tablets */
+    }
+    #hero-call-to-action p {
+        font-size: 1.8em; /* Adjust for tablets */
+    }
+    header nav ul {
+        gap: 15px; /* Reduce gap on smaller screens */
+    }
+    header nav .cta-button {
+        padding: 8px 15px; /* Smaller padding for CTA */
+    }
 }
 
 @media (max-width: 768px) {
-    header nav ul {
-        flex-direction: column; /* Stack nav items on mobile */
-        gap: 10px;
-        margin-top: 15px;
+    body {
+        padding-top: 70px; /* Adjust padding for smaller header on mobile */
     }
-    header nav ul li {
-        width: 100%; /* Full width for mobile nav items */
+    header {
+        height: 70px; /* Smaller header height on mobile */
+        padding: 15px 0;
     }
-    header nav a {
-        display: block; /* Make links fill their width */
-        padding: 10px 0;
-        text-align: center;
+    /* Hide desktop nav on mobile - you'd add a hamburger menu with JS here */
+    header nav {
+        display: none;
     }
+    header .container { /* Adjust container layout for mobile header */
+        justify-content: center; /* Center content if nav is hidden */
+        /* If you plan a hamburger menu, adjust this to space-between */
+    }
+    header h1 {
+        font-size: 2.2em; /* Even smaller for mobile */
+        text-align: center; /* Center name if nav is hidden */
+        padding-left: 0; /* Remove left padding if centered */
+        width: auto; /* Allow width to be determined by content */
+    }
+
 
     h2 {
         font-size: 2.2em;
@@ -452,31 +875,26 @@ footer a:hover {
         padding: 50px 0;
     }
     .skills-grid, #certifications ul {
-        grid-template-columns: 1fr; /* Single column for all cards on small screens */
+        grid-template-columns: 1fr;
     }
     .skill-category, .experience-item, .project-item, #certifications ul li {
-        max-width: 100%; /* Ensure they take full width */
+        max-width: 100%;
         margin-left: auto;
         margin-right: auto;
     }
-    /* Removed #about p as section is gone */
-    /* #about p { */
-    /* font-size: 1em; */
-    /* } */
-
-    /* Adjusted font size for name on smaller screens */
-    header h1 {
-        font-size: 2.5em;
+    #hero-call-to-action {
+        padding: 70px 0; /* Adjust hero padding for mobile */
+        /* You might still need a negative margin for hero-call-to-action on mobile,
+           if the header height changes. Let's keep it based on body padding-top. */
     }
-
     #hero-call-to-action p {
-        font-size: 1.4em; /* Adjust for smaller screens */
+        font-size: 1.5em;
     }
 }
 
 @media (max-width: 480px) {
     header h1 {
-        font-size: 2em; /* Even smaller for tiny screens */
+        font-size: 1.8em;
         letter-spacing: 1px;
     }
     header .tagline {
@@ -490,6 +908,17 @@ footer a:hover {
         font-size: 0.9em;
     }
     #hero-call-to-action p {
-        font-size: 1.1em; /* Further adjust for very small screens */
+        font-size: 1.1em;
     }
 }
+
+/* Class applied by JavaScript for scroll-triggered animations */
+.animate-on-scroll {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Specific delay classes (handled by JS, but defined here if needed for direct application) */
+.animate-delay-02s { animation-delay: 0.2s; }
+.animate-delay-04s { animation-delay: 0.4s; }
+.animate-delay-06s { animation-delay: 0.6s; }
+.animate-delay-08s { animation-delay: 0.8s; }
